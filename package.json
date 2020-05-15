@@ -5,7 +5,7 @@
   "main": "linked-list.js",
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watch"
   },
   "keywords": [],
   "author": "",
