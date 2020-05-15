@@ -42,14 +42,38 @@ BST.prototype.contains = function contains(value) {
 };
 
 // depthFirstTraversal 可以用來疊代 Binary Search Tree 中的所有元素
-BST.prototype.depthFirstTraversal = function depthFirstTraversal(iteratorFunc) {
-  if (this.left) {
-    this.left.depthFirstTraversal(iteratorFunc);
+const ORDER_TYPE = {
+  IN_ORDER: 'IN_ORDER', // 將所有元素打平後由左至右排列
+  PRE_ORDER: 'PRE_ORDER', // 由上往下，由左至右
+  POST_ORDER: 'POST_ORDER', // 由下往上，由左至右
+};
+
+BST.prototype.depthFirstTraversal = function depthFirstTraversal(
+  iteratorFunc,
+  order = ORDER_TYPE.IN_ORDER
+) {
+  if (order === ORDER_TYPE.PRE_ORDER) {
+    iteratorFunc(this.value);
   }
-  iteratorFunc(this.value);
+
+  if (this.left) {
+    this.left.depthFirstTraversal(iteratorFunc, order);
+  }
+
+  if (order === ORDER_TYPE.IN_ORDER) {
+    iteratorFunc(this.value);
+  }
+
   if (this.right) {
-    this.right.depthFirstTraversal(iteratorFunc);
+    this.right.depthFirstTraversal(iteratorFunc, order);
+  }
+
+  if (order === ORDER_TYPE.POST_ORDER) {
+    iteratorFunc(this.value);
   }
 };
 
-module.exports = BST;
+module.exports = {
+  BST,
+  ORDER_TYPE,
+};

@@ -1,4 +1,4 @@
-const BST = require('./binary-search-tree');
+const { BST, ORDER_TYPE } = require('./binary-search-tree');
 
 describe('Test Binary Search Tree', () => {
   test('create BST', () => {
@@ -92,10 +92,45 @@ describe('Test utility for BST', () => {
     expect(bst.contains(58)).toBeFalsy();
   });
 
-  test('depthFirstTraversal', () => {
+  test('depthFirstTraversal without order (default: in-order)', () => {
     const mockIteratorFunc = jest.fn((value) => value);
     bst.depthFirstTraversal(mockIteratorFunc);
     expect(mockIteratorFunc.mock.calls.length).toBe(12);
     expect(mockIteratorFunc.mock.results[0].value).toBe(10);
+  });
+
+  test('depthFirstTraversal with order', () => {
+    const mockIteratorFunc = jest.fn((value) => value);
+    // IN_ORDER，
+    bst.depthFirstTraversal(mockIteratorFunc, ORDER_TYPE.IN_ORDER);
+    expect(mockIteratorFunc.mock.calls.length).toBe(12);
+    expect(mockIteratorFunc.mock.results.map((r) => r.value)).toEqual([
+      10, 20, 30, 35, 45,
+      50, 59, 60, 70, 85,
+      100, 105,
+    ]);
+
+    // PRE_ORDER，由上往下，由左至右
+    mockIteratorFunc.mockClear();
+    bst.depthFirstTraversal(mockIteratorFunc, ORDER_TYPE.PRE_ORDER);
+    expect(mockIteratorFunc.mock.calls.length).toBe(12);
+    expect(mockIteratorFunc.mock.results.map((r) => r.value)).toEqual([
+      50, 30, 20, 10,
+      45, 35,
+      70, 60, 59,
+      100, 85,
+      105,
+    ]);
+
+    // POST_ORDER，
+    mockIteratorFunc.mockClear();
+    bst.depthFirstTraversal(mockIteratorFunc, ORDER_TYPE.POST_ORDER);
+    expect(mockIteratorFunc.mock.calls.length).toBe(12);
+    expect(mockIteratorFunc.mock.results.map((r) => r.value)).toEqual([
+      10, 20, 35, 45, 30,
+      59, 60,
+      85, 105, 100,
+      70, 50,
+    ]);
   });
 });
