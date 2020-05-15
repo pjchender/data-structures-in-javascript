@@ -1,3 +1,4 @@
+/* global jest, describe, test, expect, beforeAll */
 const { BST, ORDER_TYPE } = require('./binary-search-tree');
 
 describe('Test Binary Search Tree', () => {
@@ -22,7 +23,7 @@ describe('Test Binary Search Tree', () => {
       },
     });
 
-    const rightNewNode = bst.insert(60);
+    bst.insert(60);
     expect(bst).toMatchObject({
       value: 50,
       right: { value: 60 },
@@ -101,6 +102,7 @@ describe('Test utility for BST', () => {
 
   test('depthFirstTraversal with order', () => {
     const mockIteratorFunc = jest.fn((value) => value);
+
     // IN_ORDER，
     bst.depthFirstTraversal(mockIteratorFunc, ORDER_TYPE.IN_ORDER);
     expect(mockIteratorFunc.mock.calls.length).toBe(12);
@@ -131,6 +133,19 @@ describe('Test utility for BST', () => {
       59, 60,
       85, 105, 100,
       70, 50,
+    ]);
+  });
+
+  test('breadthFirstTraversal', () => {
+    const mockIteratorFunc = jest.fn((value) => value);
+    bst.breadthFirstTraversal(mockIteratorFunc, ORDER_TYPE.POST_ORDER);
+    expect(mockIteratorFunc.mock.calls.length).toBe(12);
+
+    expect(mockIteratorFunc.mock.results.map((r) => r.value)).toEqual([
+      50,
+      30, 70,
+      20, 45, 60, 100,
+      10, 35, 59, 85, 105,
     ]);
   });
 });

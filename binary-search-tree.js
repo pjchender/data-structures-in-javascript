@@ -5,7 +5,7 @@ function BST(value) {
 }
 
 BST.prototype.insert = function insert(value) {
-  let newNode = new BST(value);
+  const newNode = new BST(value);
 
   if (newNode.value <= this.value) {
     if (!this.left) {
@@ -13,12 +13,10 @@ BST.prototype.insert = function insert(value) {
     } else {
       this.left.insert(value);
     }
+  } else if (!this.right) {
+    this.right = newNode;
   } else {
-    if (!this.right) {
-      this.right = newNode;
-    } else {
-      this.right.insert(value);
-    }
+    this.right.insert(value);
   }
 };
 
@@ -26,19 +24,20 @@ BST.prototype.insert = function insert(value) {
 BST.prototype.contains = function contains(value) {
   if (value === this.value) {
     return true;
-  } else if (value < this.value) {
+  }
+  if (value < this.value) {
     if (!this.left) {
       return false;
-    } else {
-      return this.left.contains(value);
     }
-  } else if (value > this.value) {
+    return this.left.contains(value);
+  }
+  if (value > this.value) {
     if (!this.right) {
       return false;
-    } else {
-      return this.right.contains(value);
     }
+    return this.right.contains(value);
   }
+  return null;
 };
 
 // depthFirstTraversal 可以用來疊代 Binary Search Tree 中的所有元素
@@ -50,7 +49,7 @@ const ORDER_TYPE = {
 
 BST.prototype.depthFirstTraversal = function depthFirstTraversal(
   iteratorFunc,
-  order = ORDER_TYPE.IN_ORDER
+  order = ORDER_TYPE.IN_ORDER,
 ) {
   if (order === ORDER_TYPE.PRE_ORDER) {
     iteratorFunc(this.value);
@@ -70,6 +69,24 @@ BST.prototype.depthFirstTraversal = function depthFirstTraversal(
 
   if (order === ORDER_TYPE.POST_ORDER) {
     iteratorFunc(this.value);
+  }
+};
+
+BST.prototype.breadthFirstTraversal = function breadthFirstTraversal(
+  iteratorFunc,
+) {
+  const queue = [this];
+  while (queue.length) {
+    const currentNode = queue.shift();
+    iteratorFunc(currentNode.value);
+
+    if (currentNode.left) {
+      queue.push(currentNode.left);
+    }
+
+    if (currentNode.right) {
+      queue.push(currentNode.right);
+    }
   }
 };
 
