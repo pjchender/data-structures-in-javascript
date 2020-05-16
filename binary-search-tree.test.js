@@ -148,4 +148,14 @@ describe('Test utility for BST', () => {
       10, 35, 59, 85, 105,
     ]);
   });
+
+  test('getMinVal', () => {
+    const minVal = bst.getMinVal();
+    expect(minVal).toBe(10);
+  });
+
+  test('getMaxVal', () => {
+    const maxVal = bst.getMaxVal();
+    expect(maxVal).toBe(105);
+  });
 });

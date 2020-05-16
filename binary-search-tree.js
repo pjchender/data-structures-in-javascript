@@ -90,6 +90,20 @@ BST.prototype.breadthFirstTraversal = function breadthFirstTraversal(
   }
 };
 
+BST.prototype.getMinVal = function getMinVal() {
+  if (this.left) {
+    return this.left.getMinVal();
+  }
+  return this.value;
+};
+
+BST.prototype.getMaxVal = function getMinVal() {
+  if (this.right) {
+    return this.right.getMaxVal();
+  }
+  return this.value;
+};
+
 module.exports = {
   BST,
   ORDER_TYPE,
