@@ -1,8 +1,22 @@
-/* global describe, test, expect */
+/* global describe, test, expect, beforeAll */
 
-const LinkedList = require('./linked-list');
+const { LinkedList, Node } = require('./linked-list');
 
 describe('Test LinkedList', () => {
+  test('Creat linked list instance', () => {
+    const ll = new LinkedList();
+    expect(ll).toEqual({ head: null, tail: null });
+  });
+
+  test('Create node for linked list', () => {
+    const node = new Node({ value: 10, next: null, prev: null });
+    expect(node).toEqual({
+      value: 10,
+      next: null,
+      prev: null,
+    });
+  });
+
   test('Add to head', () => {
     const ll = new LinkedList();
     ll.addToHead(100);
@@ -40,18 +54,22 @@ describe('Test LinkedList', () => {
   });
 
   test('remove head', () => {
+    let removeValue;
     const ll = new LinkedList();
     ll.addToTail(50);
     ll.addToTail(100);
     ll.addToHead(10);
 
-    ll.removeHead();
+    removeValue = ll.removeHead();
+    expect(removeValue).toBe(10);
     expect(ll).toMatchObject({ head: { value: 50 }, tail: { value: 100 } });
 
-    ll.removeHead();
+    removeValue = ll.removeHead();
+    expect(removeValue).toBe(50);
     expect(ll).toMatchObject({ head: { value: 100 }, tail: { value: 100 } });
 
-    ll.removeHead();
+    removeValue = ll.removeHead();
+    expect(removeValue).toBe(100);
     expect(ll).toMatchObject({ head: null, tail: null });
   });
 
@@ -87,6 +105,7 @@ describe('test linked-list utilities', () => {
   });
 
   test('indexOf', () => {
+    // 10, 50, 100, 10
     expect(ll.indexOf(10)).toEqual([0, 3]);
     expect(ll.indexOf(100)).toEqual([2]);
     expect(ll.indexOf(1)).toEqual([]);

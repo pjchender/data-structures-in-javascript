@@ -31,6 +31,7 @@ LinkedList.prototype.addToTail = function addToTail(value) {
   this.tail = newNode;
 };
 
+// 回傳被移除的值，否則回傳 null
 LinkedList.prototype.removeHead = function removeHead() {
   if (!this.head) return null;
   const removeHeadValue = this.head.value;
@@ -48,6 +49,7 @@ LinkedList.prototype.removeHead = function removeHead() {
   return removeHeadValue;
 };
 
+// 回傳被移除的值，否則回傳 null
 LinkedList.prototype.removeTail = function removeTail() {
   if (!this.tail) return null;
   const removeTailValue = this.tail.value;
@@ -66,6 +68,9 @@ LinkedList.prototype.removeTail = function removeTail() {
   return removeTailValue;
 };
 
+// 找不到的話回傳 null，否則回傳找的的值
+// Notice: 這裡需要特別留意一定要把 this.head 存成一個變數
+// 如此對當這個變數賦值時才不會影響到原本的 head
 LinkedList.prototype.search = function search(searchValue) {
   let currentNode = this.head;
 
@@ -80,6 +85,9 @@ LinkedList.prototype.search = function search(searchValue) {
   return null;
 };
 
+// 列出所有等同於 searchValue 的 index
+// Notice: 這裡需要特別留意一定要把 this.head 存成一個變數
+// 如此對當這個變數賦值時才不會影響到原本的 head
 LinkedList.prototype.indexOf = function indexOf(searchValue) {
   let currentNode = this.head;
   const indexes = [];
@@ -97,4 +105,7 @@ LinkedList.prototype.indexOf = function indexOf(searchValue) {
   return indexes;
 };
 
-module.exports = LinkedList;
+module.exports = {
+  LinkedList,
+  Node,
+};
