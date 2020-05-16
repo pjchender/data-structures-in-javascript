@@ -138,7 +138,7 @@ describe('Test utility for BST', () => {
 
   test('breadthFirstTraversal', () => {
     const mockIteratorFunc = jest.fn((value) => value);
-    bst.breadthFirstTraversal(mockIteratorFunc, ORDER_TYPE.POST_ORDER);
+    bst.breadthFirstTraversal(mockIteratorFunc);
     expect(mockIteratorFunc.mock.calls.length).toBe(12);
 
     expect(mockIteratorFunc.mock.results.map((r) => r.value)).toEqual([
