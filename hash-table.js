@@ -41,4 +41,21 @@ HashTable.prototype.insert = function insert({ key, value }) {
   }
 };
 
+HashTable.prototype.get = function get(key) {
+  const index = this.hash(key);
+  if (!this.buckets[index]) {
+    return null;
+  }
+  let currentNode = this.buckets[index];
+
+  while (currentNode) {
+    if (currentNode.key === key) {
+      return currentNode.value;
+    }
+
+    currentNode = currentNode.next;
+  }
+  return null;
+};
+
 module.exports = HashTable;

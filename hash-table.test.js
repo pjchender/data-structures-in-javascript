@@ -1,4 +1,4 @@
-/* global describe, test, expect, beforeEach */
+/* global describe, test, expect, beforeEach, beforeAll */
 
 const HashTable = require('./hash-table');
 
@@ -68,5 +68,29 @@ describe('Test Hash Table', () => {
       ...updatedDean,
       next: { ...updatedDane, next: null },
     });
+  });
+});
+
+describe('Test utilities for Hash Table', () => {
+  let ht;
+  beforeAll(() => {
+    ht = new HashTable(30);
+    ht.insert({ key: 'Dean', value: 'dean@gmail.com' });
+    ht.insert({ key: 'Megan', value: 'megan@gmail.com' });
+    ht.insert({ key: 'Dane', value: 'dane@yahoo.com' });
+  });
+
+  test('get', () => {
+    expect(ht.get('Dean')).toBe('dean@gmail.com');
+    expect(ht.get('Megan')).toBe('megan@gmail.com');
+    expect(ht.get('Dane')).toBe('dane@yahoo.com');
+
+    ht.insert({ key: 'Dean', value: 'dean@yahoo.com' });
+    ht.insert({ key: 'Megan', value: 'megan@yahoo.com' });
+    ht.insert({ key: 'Dane', value: 'dane@gamil.com' });
+
+    expect(ht.get('Dean')).toBe('dean@yahoo.com');
+    expect(ht.get('Megan')).toBe('megan@yahoo.com');
+    expect(ht.get('Dane')).toBe('dane@gamil.com');
   });
 });
