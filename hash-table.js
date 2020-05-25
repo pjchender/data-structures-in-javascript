@@ -24,9 +24,19 @@ HashTable.prototype.insert = function insert({ key, value }) {
     this.buckets[index] = new HashNode({ key, value });
   } else {
     let currentNode = this.buckets[index];
+    if (currentNode.key === key) {
+      currentNode.value = value;
+      return;
+    }
+
     while (currentNode.next) {
+      if (currentNode.next.key === key) {
+        currentNode.next.value = value;
+        return;
+      }
       currentNode = currentNode.next;
     }
+
     currentNode.next = new HashNode({ key, value });
   }
 };
