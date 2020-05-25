@@ -93,4 +93,29 @@ describe('Test utilities for Hash Table', () => {
     expect(ht.get('Megan')).toBe('megan@yahoo.com');
     expect(ht.get('Dane')).toBe('dane@gamil.com');
   });
+
+  test('retrieveAll', () => {
+    const allBuckets = ht.retrieveAll();
+
+    expect(allBuckets).toContainEqual(
+      expect.objectContaining({
+        key: 'Dean',
+        value: 'dean@yahoo.com',
+      }),
+    );
+
+    expect(allBuckets).toContainEqual(
+      expect.objectContaining({
+        key: 'Megan',
+        value: 'megan@yahoo.com',
+      }),
+    );
+
+    expect(allBuckets).toContainEqual(
+      expect.objectContaining({
+        key: 'Dane',
+        value: 'dane@gamil.com',
+      }),
+    );
+  });
 });
