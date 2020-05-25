@@ -4,6 +4,7 @@ function BST(value) {
   this.right = null;
 }
 
+// 在 BST 中插入值
 BST.prototype.insert = function insert(value) {
   const newNode = new BST(value);
 
@@ -72,6 +73,7 @@ BST.prototype.depthFirstTraversal = function depthFirstTraversal(
   }
 };
 
+// 疊代 BST 中的所有元素
 BST.prototype.breadthFirstTraversal = function breadthFirstTraversal(
   iteratorFunc,
 ) {
@@ -90,6 +92,7 @@ BST.prototype.breadthFirstTraversal = function breadthFirstTraversal(
   }
 };
 
+// 取得 BST 中的最小值
 BST.prototype.getMinVal = function getMinVal() {
   if (this.left) {
     return this.left.getMinVal();
@@ -97,6 +100,7 @@ BST.prototype.getMinVal = function getMinVal() {
   return this.value;
 };
 
+// 取得 BST 中的最大值
 BST.prototype.getMaxVal = function getMaxVal() {
   if (this.right) {
     return this.right.getMaxVal();
